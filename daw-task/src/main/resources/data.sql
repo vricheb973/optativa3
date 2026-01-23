@@ -1,34 +1,27 @@
--- --------------------------------------------------------
--- 1. Insertar Usuarios
--- Contraseña para todos: "1234" (codificada con BCrypt)
--- --------------------------------------------------------
+-- 2. Inserción de Usuarios (Todos con password: 1234)
+-- Hash BCrypt de "1234": $2a$10$clYvYI6fR/U0J7.O1l7Kue.mK6/0L6B.vJ.vI8BWBW9x1B.N8.yW
+INSERT INTO usuario (username, password, email, rol) VALUES
+('admin01', '$2a$10$uAX0Uz1sETSDQlsI3E.G8evSBvWOt04jtG3cXxhnkvN5Z4ljp6Tfy', 'admin@empresa.com', 'ADMIN'),
+('juan85', '$2a$10$uAX0Uz1sETSDQlsI3E.G8evSBvWOt04jtG3cXxhnkvN5Z4ljp6Tfy', 'juan@correo.com', 'USER'),
+('maria_dev', '$2a$10$uAX0Uz1sETSDQlsI3E.G8evSBvWOt04jtG3cXxhnkvN5Z4ljp6Tfy', 'maria@correo.com', 'USER'),
+('pablo_qa', '$2a$10$uAX0Uz1sETSDQlsI3E.G8evSBvWOt04jtG3cXxhnkvN5Z4ljp6Tfy', 'pablo@correo.com', 'USER');
 
-INSERT INTO usuario (username, password, email, rol) VALUES 
-('admin_jefe', '$2a$10$xn3LI/AjqicFYZFruSwve.681477XaVNaUQbr1gioaWPn4t1KsnmG', 'admin@empresa.com', 'ADMIN'),
-('luis_garcia', '$2a$10$xn3LI/AjqicFYZFruSwve.681477XaVNaUQbr1gioaWPn4t1KsnmG', 'luis@empresa.com', 'USER'),
-('ana_perez', '$2a$10$xn3LI/AjqicFYZFruSwve.681477XaVNaUQbr1gioaWPn4t1KsnmG', 'ana@empresa.com', 'USER'),
-('david_romero', '$2a$10$xn3LI/AjqicFYZFruSwve.681477XaVNaUQbr1gioaWPn4t1KsnmG', 'david@empresa.com', 'USER');
+-- 3. Inserción de 10 Tareas Variadas
+INSERT INTO tarea (titulo, descripcion, fecha_creacion, fecha_vencimiento, estado, id_usuario) VALUES
+-- Tareas del Admin (ID 1)
+('Configuración Inicial', 'Configurar los parámetros del sistema', '2024-02-01', '2024-02-05', 'COMPLETADA', 1),
+('Auditoría de Seguridad', 'Revisar logs de acceso sospechosos', '2024-02-10', '2024-02-15', 'PENDIENTE', 1),
 
--- --------------------------------------------------------
--- 2. Insertar Tareas
--- Asignadas a los IDs generados arriba (asumiendo IDs 1, 2, 3, 4)
--- --------------------------------------------------------
+-- Tareas de Juan (ID 2)
+('Maquetación Frontend', 'Crear la vista de login con CSS', '2024-02-02', '2024-02-10', 'EN_PROGRESO', 2),
+('Refactorización', 'Limpiar código muerto en el controlador', '2024-02-05', '2024-02-07', 'COMPLETADA', 2),
+('Subir a Producción', 'Desplegar la versión 1.2.0', '2024-02-20', '2024-02-20', 'PENDIENTE', 2),
 
-INSERT INTO tarea (titulo, descripcion, fecha_creacion, fecha_vencimiento, estado, id_usuario) VALUES 
--- Tareas para el Admin (ID 1)
-('Revisar logs del servidor', 'Comprobar accesos no autorizados del fin de semana', '2023-10-01', '2023-10-05', 'COMPLETADA', 1),
-('Actualizar licencias', 'Renovar la licencia de IntelliJ para el equipo', '2023-10-10', '2023-10-20', 'PENDIENTE', 1),
+-- Tareas de Maria (ID 3)
+('Diseño de Base de Datos', 'Crear diagrama ER de la nueva entidad', '2024-02-01', '2024-02-03', 'COMPLETADA', 3),
+('Testing Unitario', 'Alcanzar el 80% de cobertura en servicios', '2024-02-12', '2024-02-28', 'EN_PROGRESO', 3),
+('Revisión de Pull Requests', 'Aprobar cambios de la rama develop', '2024-02-15', '2024-02-16', 'PENDIENTE', 3),
 
--- Tareas para Luis (ID 2)
-('Desarrollar Login', 'Implementar autenticación JWT en el backend', '2023-10-02', '2023-10-15', 'EN_PROGRESO', 2),
-('Corregir bug #404', 'El usuario no puede subir avatares .png', '2023-10-11', '2023-10-12', 'PENDIENTE', 2),
-('Reunión con cliente', 'Presentar avance del módulo de ventas', '2023-10-12', '2023-10-12', 'COMPLETADA', 2),
-
--- Tareas para Ana (ID 3)
-('Diseñar BBDD', 'Crear diagrama ER para el nuevo microservicio', '2023-09-25', '2023-10-01', 'COMPLETADA', 3),
-('Documentar API', 'Actualizar Swagger con los nuevos endpoints', '2023-10-05', '2023-10-25', 'EN_PROGRESO', 3),
-
--- Tareas para David (ID 4)
-('Test unitarios', 'Aumentar cobertura de tests en el servicio de usuarios', '2023-10-08', '2023-10-18', 'PENDIENTE', 4),
-('Optimizar consultas', 'Mejorar query de búsqueda de productos', '2023-10-09', '2023-10-15', 'PENDIENTE', 4),
-('Maquetar Home', 'Aplicar nuevos estilos CSS recibidos de diseño', '2023-10-01', '2023-10-03', 'COMPLETADA', 4);
+-- Tareas de Pablo (ID 4)
+('QA de Regresión', 'Probar que no se hayan roto funciones antiguas', '2024-02-18', '2024-02-22', 'PENDIENTE', 4),
+('Automatización de Tests', 'Crear scripts de Selenium para el Home', '2024-02-05', '2024-02-15', 'COMPLETADA', 4);
