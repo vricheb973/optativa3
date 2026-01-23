@@ -26,7 +26,7 @@ public class SecurityConfig {
 			.csrf(csrf -> csrf.disable())
 			.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 			.authorizeHttpRequests(auth -> auth
-				.requestMatchers(HttpMethod.GET, "/tareas").permitAll()
+				.requestMatchers(HttpMethod.GET, "/tareas").hasAnyRole("ADMIN", "USER")
 				.requestMatchers(HttpMethod.GET, "/tareas/*").hasAnyRole("ADMIN", "USER")
 				.anyRequest().authenticated()
 			)
@@ -34,6 +34,7 @@ public class SecurityConfig {
 			
 		return http.build();
 	}
+	
 	
 	@Bean
 	PasswordEncoder passwordEncoder() {

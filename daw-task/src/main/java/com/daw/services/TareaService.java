@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.daw.persistence.entities.Estado;
@@ -11,6 +12,7 @@ import com.daw.persistence.entities.Tarea;
 import com.daw.persistence.repositories.TareaRepository;
 import com.daw.services.exceptions.TareaException;
 import com.daw.services.exceptions.TareaNotFoundException;
+import com.daw.services.exceptions.TareaSecurityException;
 
 @Service
 public class TareaService {
@@ -111,7 +113,24 @@ public class TareaService {
 		return this.tareaRepository.findByEstado(Estado.COMPLETADA);
 	}
 
+	//Métodos securizados
+	//Mis tareas
+	public List<Tarea> findByUser() {
+		//Con este método obtengo el username que está autenticado en este momento
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		return this.tareaRepository.findByUsuarioUsername(username);
+	}
 	
+	public Tarea findByIdAndUser(int idTarea) {
+		Tarea t = this.findById(idTarea);
+		
+		if(!t.getUsuario().getUsername().equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
+			throw new TareaSecurityException("La tarea no pertenece al usuario. ");
+		}
+
+		return t;
+	}
 	
 	
 	
