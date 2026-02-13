@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.daw.persistence.entities.Usuario;
@@ -27,6 +28,14 @@ public class UsuarioService implements UserDetailsService {
 				.password(usuario.getPassword())
 				.roles(usuario.getRol())
 				.build();
+	}
+	
+	public Usuario create(String username, String password) {
+		Usuario usuario = new Usuario();
+		usuario.setUsername(username);
+		usuario.setPassword(new BCryptPasswordEncoder().encode(password));
+		usuario.setRol("USER");
+		return usuarioRepository.save(usuario);
 	}
 
 }
